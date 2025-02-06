@@ -31,7 +31,9 @@ const Menu = () => {
       </div>
       <ul>
         {filteredItems.map((item) => (
-          <li key={item.id}>{item.name}</li>
+          <li key={item.id} data-test-id={`menu-item-${item.category.toLowerCase()}`}>
+            {item.name}
+          </li>
         ))}
       </ul>
     </div>

@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Menu = ({ items }) => {
+const items = [
+  { id: 1, name: "Pancakes", category: "Breakfast" },
+  { id: 2, name: "Burger", category: "Lunch" },
+  { id: 3, name: "Milkshake", category: "Shakes" },
+];
+
+const categories = ["All", "Breakfast", "Lunch", "Shakes"];
+
+const Menu = () => {
+  const [filteredCategory, setFilteredCategory] = useState("All");
+
+  const filteredItems =
+    filteredCategory === "All"
+      ? items
+      : items.filter((item) => item.category === filteredCategory);
+
   return (
-    <div className="menu">
-      {items.map((item) => (
-        <div key={item.id} className="menu-item">
-          <img src={item.image} alt={item.name} className="menu-img" />
-          <div className="menu-info">
-            <h4 className="menu-name">{item.name} <span className="menu-price">{item.price}</span></h4>
-            <p className="menu-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      ))}
+    <div>
+      <div>
+        {categories.map((category, index) => (
+          <button
+            key={index}
+            id={`filter-btn-${index}`}
+            onClick={() => setFilteredCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+      <ul>
+        {filteredItems.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
